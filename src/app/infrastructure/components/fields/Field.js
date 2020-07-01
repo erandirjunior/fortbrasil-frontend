@@ -2,6 +2,7 @@ export default class Field {
   class = ''
   color = ''
   style = ''
+  columnClass = ''
   columnStyle = ''
   disable = () => false
   hide = () => false
@@ -41,6 +42,12 @@ export default class Field {
 
   setHide (callback) {
     this.hide = callback
+
+    return this
+  }
+
+  setColumnClass (columnClass) {
+    this.columnClass = columnClass
 
     return this
   }

@@ -3,7 +3,8 @@
     <div
       v-for="(field, index) in getFields()"
       :key="index"
-      :class="field.columnStyle"
+      :class="field.columnClass"
+      :style="field.columnStyle"
     >
       <component
         :is="field.fieldType"

@@ -1,41 +1,60 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout view="lHh lpR fFf">
+    <q-header>
       <q-toolbar class="header-color">
         <q-btn
+          stretch
           flat
-          dense
-          round
           icon="menu"
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
+          class="mobile-only"
         />
 
         <q-toolbar-title>
-          Quasar App
+          <div class="text-weight-bold mobile-only">
+            JD<span class="text-weight-regular">rive</span>
+          </div>
         </q-toolbar-title>
 
-        <q-input color="white" dark label-color="white" standard v-model="search" dense>
-          <template v-slot:append>
-            <q-icon name="search" color="white" />
-          </template>
-        </q-input>
-        <q-separator vertical />
-        <div style="margin-right: 1%">
-          <q-btn color="primary" flat icon="add" text-color="white" label="Create Folder" />
-        </div>
-        <q-separator vertical inset />
-        <div style="margin-right: 1%">
-          <q-btn color="primary" flat icon="cloud_upload" text-color="white" label="Upload" />
-        </div>
+        <q-btn
+          class="desktop-only"
+          stretch
+          color="primary"
+          flat
+          icon="search"
+          text-color="white"
+          label="Search"
+        >
+          <q-menu :offset="[20, 0]">
+            <q-list>
+              <q-item>
+                <q-input outlined v-model="search" label="Search" dense>
+                  <template v-slot:append>
+                    <q-icon name="search" />
+                  </template>
+                </q-input>
+              </q-item>
+            </q-list>
+          </q-menu>
+        </q-btn>
 
-        <div>
-          <q-btn round size="sm">
-            <q-avatar size="40px">
-              <img src="https://cdn.quasar.dev/img/avatar2.jpg">
-            </q-avatar>
-          </q-btn>
-        </div>
+        <q-btn-group stretch flat class="desktop-only">
+          <q-btn stretch text-color="white" label="Create Folder" icon="create_new_folder"/>
+
+          <q-separator class="desktop-only" vertical inset />
+
+          <q-btn stretch text-color="white" label="Upload" icon="cloud_upload"/>
+
+          <q-separator class="desktop-only" vertical inset />
+
+        </q-btn-group>
+
+        <q-btn flat stretch>
+          <q-avatar>
+            <img src="https://cdn.quasar.dev/img/avatar2.jpg">
+          </q-avatar>
+        </q-btn>
 
       </q-toolbar>
     </q-header>
@@ -44,102 +63,67 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      content-class="bg-grey-1"
+      elevated
+      class="header-color"
     >
       <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
+        <q-item-label>
+          <div class="text-h3 q-pl-xl text-color-gradient">JDrive</div>
         </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <q-separator/>
       </q-list>
     </q-drawer>
 
-    <q-page-container>
-      <router-view />
+    <q-page-container
+      @dragenter="updateModalStatus(true)"
+    >
+      <router-view class="bg-grey-2"/>
       <q-page-sticky position="bottom-right" :offset="[18, 40]">
         <q-btn
           fab
           icon="cloud_upload"
           class="header-color"
           text-color="white"
+          @click="openModal = !openModal"
         />
       </q-page-sticky>
+      <upload :openModal="openModal" @updateModalStatus="updateModalStatus" />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import EssentialLink from '../components/EssentialLink'
+import Upload from 'components/site/Upload'
 
 export default {
   name: 'MainLayout',
   components: {
-    EssentialLink
+    Upload
   },
   data () {
     return {
       leftDrawerOpen: false,
-      search: '',
-      essentialLinks: [
-        {
-          title: 'Docs',
-          caption: 'quasar.dev',
-          icon: 'school',
-          link: 'https://quasar.dev'
-        },
-        {
-          title: 'Github',
-          caption: 'github.com/quasarframework',
-          icon: 'code',
-          link: 'https://github.com/quasarframework'
-        },
-        {
-          title: 'Discord Chat Channel',
-          caption: 'chat.quasar.dev',
-          icon: 'chat',
-          link: 'https://chat.quasar.dev'
-        },
-        {
-          title: 'Forum',
-          caption: 'forum.quasar.dev',
-          icon: 'record_voice_over',
-          link: 'https://forum.quasar.dev'
-        },
-        {
-          title: 'Twitter',
-          caption: '@quasarframework',
-          icon: 'rss_feed',
-          link: 'https://twitter.quasar.dev'
-        },
-        {
-          title: 'Facebook',
-          caption: '@QuasarFramework',
-          icon: 'public',
-          link: 'https://facebook.quasar.dev'
-        },
-        {
-          title: 'Quasar Awesome',
-          caption: 'Community Quasar projects',
-          icon: 'favorite',
-          link: 'https://awesome.quasar.dev'
-        }
-      ]
+      openModal: false,
+      search: ''
+    }
+  },
+  methods: {
+    updateModalStatus (value) {
+      this.openModal = value
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
   .header-color {
     background: #00b4db; /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #00b4db, #0083b0); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #00b4db, #0083b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
+  .text-color-gradient {
+    background: -webkit-linear-gradient(#00b4db, #0083b0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+   }
 </style>

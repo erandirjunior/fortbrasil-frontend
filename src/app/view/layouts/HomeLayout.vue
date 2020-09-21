@@ -1,78 +1,14 @@
 <template>
-  <q-layout view="lHh lpR fFf">
-    <q-header>
-      <q-toolbar class="header-color">
-        <q-btn
-          stretch
-          flat
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          class="mobile-only"
-        />
+  <q-layout view="hHh lpR fFf">
+    <header-layout
+      @updateModalStatus="updateModalStatus"
+      @updateDrawerStatus="updateLeftDrawerStatus"
+    />
 
-        <q-toolbar-title>
-          <div class="text-weight-bold mobile-only">
-            JD<span class="text-weight-regular">rive</span>
-          </div>
-        </q-toolbar-title>
-
-        <q-btn
-          class="desktop-only"
-          stretch
-          color="primary"
-          flat
-          icon="search"
-          text-color="white"
-          label="Search"
-        >
-          <q-menu :offset="[20, 0]">
-            <q-list>
-              <q-item>
-                <q-input outlined v-model="search" label="Search" dense>
-                  <template v-slot:append>
-                    <q-icon name="search" />
-                  </template>
-                </q-input>
-              </q-item>
-            </q-list>
-          </q-menu>
-        </q-btn>
-
-        <q-btn-group stretch flat class="desktop-only">
-          <q-btn stretch text-color="white" label="Create Folder" icon="create_new_folder"/>
-
-          <q-separator class="desktop-only" vertical inset />
-
-          <q-btn stretch text-color="white" label="Upload" icon="cloud_upload"/>
-
-          <q-separator class="desktop-only" vertical inset />
-
-        </q-btn-group>
-
-        <q-btn flat stretch>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/img/avatar2.jpg">
-          </q-avatar>
-        </q-btn>
-
-      </q-toolbar>
-    </q-header>
-
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      elevated
-      class="header-color"
-    >
-      <q-list>
-        <q-item-label>
-          <div class="text-h3 q-pl-xl text-color-gradient">JDrive</div>
-        </q-item-label>
-        <q-separator/>
-      </q-list>
-    </q-drawer>
+    <aside-layout
+      :left-drawer-open="leftDrawerOpen"
+      @updateDrawerStatus="updateLeftDrawerStatus"
+    />
 
     <q-page-container
       @dragenter="updateModalStatus(true)"
@@ -84,7 +20,7 @@
           icon="cloud_upload"
           class="header-color"
           text-color="white"
-          @click="openModal = !openModal"
+          @click="updateModalStatus(true)"
         />
       </q-page-sticky>
       <upload :openModal="openModal" @updateModalStatus="updateModalStatus" />
@@ -94,10 +30,14 @@
 
 <script>
 import Upload from 'components/site/Upload'
+import HeaderLayout from 'components/site/layouts/home/HeaderLayout'
+import AsideLayout from 'components/site/layouts/home/AsideLayout'
 
 export default {
   name: 'MainLayout',
   components: {
+    HeaderLayout,
+    AsideLayout,
     Upload
   },
   data () {
@@ -108,8 +48,11 @@ export default {
     }
   },
   methods: {
-    updateModalStatus (value) {
-      this.openModal = value
+    updateModalStatus () {
+      this.openModal = !this.openModal
+    },
+    updateLeftDrawerStatus () {
+      this.leftDrawerOpen = !this.leftDrawerOpen
     }
   }
 }

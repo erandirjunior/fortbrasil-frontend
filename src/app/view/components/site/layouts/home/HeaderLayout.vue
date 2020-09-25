@@ -1,6 +1,6 @@
 <template>
   <q-header>
-    <q-toolbar class="header-color">
+    <q-toolbar class="bg-light-blue-7">
       <q-btn
         stretch
         flat

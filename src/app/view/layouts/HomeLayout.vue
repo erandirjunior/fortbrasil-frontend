@@ -5,40 +5,19 @@
       @updateDrawerStatus="updateLeftDrawerStatus"
     />
 
-    <aside-layout
-      :left-drawer-open="leftDrawerOpen"
-      @updateDrawerStatus="updateLeftDrawerStatus"
-    />
-
-    <q-page-container
-      @dragenter="updateModalStatus(true)"
-    >
+    <q-page-container>
       <router-view class="bg-grey-2"/>
-      <q-page-sticky position="bottom-right" :offset="[18, 40]">
-        <q-btn
-          fab
-          icon="cloud_upload"
-          class="header-color"
-          text-color="white"
-          @click="updateModalStatus(true)"
-        />
-      </q-page-sticky>
-      <upload :openModal="openModal" @updateModalStatus="updateModalStatus" />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import Upload from 'components/site/Upload'
 import HeaderLayout from 'components/site/layouts/home/HeaderLayout'
-import AsideLayout from 'components/site/layouts/home/AsideLayout'
 
 export default {
   name: 'MainLayout',
   components: {
-    HeaderLayout,
-    AsideLayout,
-    Upload
+    HeaderLayout
   },
   data () {
     return {

@@ -1,8 +1,8 @@
 <template>
-  <q-page class="q-pa-xl">
+  <q-page class="q-pa-xs">
     <q-card class="card-content">
-      <q-card-section>
-        Login
+      <q-card-section class="text-weight-bold text-h5">
+        Formulário de Login
       </q-card-section>
       <q-card-section>
         <form-factory
@@ -22,6 +22,8 @@ import handlerActionMixin from 'mixins/handlerActionMixin'
 import FormFactory from 'components/general/form/FormFactory'
 import Login from 'builder/forms/Login'
 import { required, minLength, email } from 'vuelidate/lib/validators'
+import alert from 'src/app/infrastructure/components/alert/alert'
+import { post } from 'src/app/infrastructure/components/request/request'
 
 export default {
   name: 'Login',
@@ -55,8 +57,31 @@ export default {
   methods: {
     login () {
       this.$v.$touch()
-      console.log(this.$v.form.$error)
-      console.log(this.form)
+
+      if (this.$v.form.$error) {
+        const msg = 'Por favor, verifique os campos do formulário e tente novamente!'
+        return alert(msg, 'red', 'thumb_down')
+      }
+
+      post('login', this.form)
+        .then((response) => response.data)
+        .then((response) => {
+          localStorage.setItem('token', response.token)
+          localStorage.setItem('user', response.id)
+
+          this.$router.push('/')
+        })
+        .catch(error => {
+          if (Array.isArray(error.response.data)) {
+            error.response.data.forEach(msg => {
+              alert(msg, 'red', 'thumb_down')
+            })
+
+            return
+          }
+
+          alert(error, 'red', 'thumb_down')
+        })
     }
   }
 }
@@ -66,6 +91,11 @@ export default {
   .card-content {
     width: 30%;
     margin: 10% auto;
+  }
+  @media screen and (max-width: 400px) {
+    .card-content {
+      width: 100%;
+    }
   }
   .button-color {
     background: #00b4db;

@@ -21,7 +21,8 @@ module.exports = function (ctx) {
     boot: [
       '../app/infrastructure/boot/i18n',
       '../app/infrastructure/boot/vuelidate',
-      '../app/infrastructure/boot/axios'
+      '../app/infrastructure/boot/axios',
+      '../app/infrastructure/boot/authorization'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -83,7 +84,7 @@ module.exports = function (ctx) {
       },
       env: ctx.dev
         ? {
-          API: ''
+          API: 'http://192.168.15.5:8081'
         }
         : {
           API: ''
@@ -182,8 +183,8 @@ module.exports = function (ctx) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'Quasar Structure',
-        short_name: 'Quasar Structure',
+        name: 'Fortbrasil Frontend',
+        short_name: 'Fortbrasil Frontend',
         description: 'A Quasar Framework app',
         display: 'standalone',
         orientation: 'portrait',

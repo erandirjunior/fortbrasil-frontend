@@ -2,7 +2,7 @@
   "name": "quasar-structure",
   "version": "0.0.1",
   "description": "A Quasar Framework app",
-  "productName": "Quasar Structure",
+  "productName": "Fortbrasil Frontend",
   "author": "Antonio Erandir Feitosa Soares Junior",
   "private": true,
   "scripts": {
@@ -18,7 +18,7 @@
     "vuelidate": "^0.7.5"
   },
   "devDependencies": {
-    "@quasar/app": "^2.0.6",
+    "@quasar/app": "^2.1.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",

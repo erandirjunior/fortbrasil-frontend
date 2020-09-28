@@ -31,7 +31,9 @@ src
 
 ***This project run in port 80***
 
-#### Run this command:
+#### Fistly open file quasar.conf.js, go to the line 87 and replace the string YOUR_IP by your IP.
+
+#### After added your ip in the file settings, run this command:
 ```
 docker-compose up
 ```

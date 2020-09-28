@@ -1,11 +1,9 @@
-# Quasar Structure (quasar-structure)
+# fortbrasil-fronted
 
 ## Structure folder
 <pre>
 src
  └── app
-   └── application # Application layer
-   └── domain # Domain layer
    └── infrastructure # Infrastructure layer
      └── boot # Boot files (app initialization code)
      └── builder # Factory to create something
@@ -25,15 +23,32 @@ src
  └── router # Vue Router
  </pre>
 
-## Example using this structure
-See [Routine app](https://github.com/erandirjunior/routine), Routine is a mobile app to handle tasks dairly.
+## Installation
 
-## Install the dependencies
+#### Requirements
+* [Docker](https://www.docker.com/)
+* Disable others services that be running in port 80
+
+***This project run in port 80***
+
+#### Run this command:
+```
+docker-compose up
+```
+
+### Enter in container with this command:
+```
+docker exec -it fortbrasilfrontend_frontend_1 sh
+```
+***In my case the container name was fortbrasilfrontend_frontend_1,
+check the container name running this code: docker ps -a***
+
+## Inside the container run this commando to install the dependencies
 ```bash
 npm install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### After install dependencies, start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
 quasar dev
 ```
@@ -48,5 +63,4 @@ npm run lint
 quasar build
 ```
 
-### Customize the configuration
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
+This system was built using quasar framework, vue validate and axios.

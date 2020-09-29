@@ -18,7 +18,6 @@ export default class Establishment extends FormBuilder {
       .setModel('city')
       .setColumnClass('col-xs-9')
       .setFilled(true)
-      .setAutofocus(true)
       .setDense(true)
     )
 
@@ -27,7 +26,6 @@ export default class Establishment extends FormBuilder {
       .setModel('street')
       .setColumnClass('col-xs-9')
       .setFilled(true)
-      .setAutofocus(true)
       .setDense(true)
     )
 
@@ -37,7 +35,6 @@ export default class Establishment extends FormBuilder {
       .setModel('number')
       .setColumnClass('col-xs-3')
       .setFilled(true)
-      .setAutofocus(true)
       .setDense(true)
     )
 
@@ -46,7 +43,6 @@ export default class Establishment extends FormBuilder {
       .setModel('name')
       .setColumnClass('col-xs-12')
       .setFilled(true)
-      .setAutofocus(true)
       .setDense(true)
     )
   }

@@ -92,7 +92,7 @@ export default {
 <style>
   .card-content {
     width: 30%;
-    margin: 10% auto;
+    margin: 2% auto;
   }
   @media screen and (max-width: 400px) {
     .card-content {

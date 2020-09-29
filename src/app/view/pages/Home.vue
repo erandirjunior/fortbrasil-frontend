@@ -147,6 +147,7 @@
                 mask="#####-###"
                 :error="$v.form.zipCode.$error"
                 v-model="form.zipCode"
+                autofocus
               />
             </div>
             <div class="col-md-4 col-sm-4">

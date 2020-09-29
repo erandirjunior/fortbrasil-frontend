@@ -23,6 +23,8 @@ src
  └── router # Vue Router
  </pre>
 
+ > Watch preview project running on [YouTube Video](https://youtu.be/b_dXRVzBGTU)
+
 ## Installation
 
 #### Requirements
@@ -35,7 +37,7 @@ src
 
 #### After added your ip in the file settings, run this command:
 ```
-docker-compose up
+docker-compose up --build
 ```
 
 ### Enter in container with this command:
